@@ -39,14 +39,19 @@ RUN apt-get update && apt-get install -y \
     unzip \
     pkg-config \
     software-properties-common \
-    graphviz \
-    locales \
-    vim
+    graphviz
 
-# Set language
-RUN locale-gen en_US.UTF-8
-ENV LC_ALL en_US.UTF-8
-ENV LANG en_US.UTF-8
+# Install OpenJDK-8
+RUN apt-get update && \
+    apt-get install -y openjdk-8-jdk && \
+    apt-get install -y ant && \
+    apt-get clean
+
+# Fix certificate issues
+RUN apt-get update && \
+    apt-get install ca-certificates-java && \
+    apt-get clean && \
+    update-ca-certificates -f
 
 # Setting user
 RUN adduser --disabled-password \
@@ -74,6 +79,12 @@ RUN pip install --no-cache-dir --upgrade pip setuptools wheel
 RUN echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
 RUN echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
 RUN echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+
+# Setup JAVA_HOME -- useful for docker commandline
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
+RUN export JAVA_HOME
+RUN echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/" >> ~/.bashrc
+RUN sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 USER root
 RUN chown -R ${UID} ${HOME}
