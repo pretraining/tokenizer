@@ -11,7 +11,7 @@ def extract_filepath_from_dir(
     list_of_filepath = []
     for filepath in dirpath.iterdir():
         if filepath.is_dir():
-            list_of_filepath.extend(list([str(_) for _ in filepath.glob(f"*.{ext}")]))
+            list_of_filepath.extend((str(_) for _ in filepath.glob(f"*.{ext}")))
         elif filepath.suffix == f".{ext}":
             list_of_filepath.append(str(filepath))
     return list_of_filepath

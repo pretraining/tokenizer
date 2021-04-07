@@ -79,7 +79,7 @@ RUN git clone https://github.com/pyenv/pyenv.git .pyenv
 RUN pyenv install ${PYTHON_VER} && \
     pyenv global ${PYTHON_VER}
 
-RUN pip install --no-cache-dir --upgrade pip setuptools wheel
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel cython
 
 # Setup pyenv 
 RUN echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
