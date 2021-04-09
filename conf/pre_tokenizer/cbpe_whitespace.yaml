@@ -1,0 +1,5 @@
+# @package _group_
+_target_: src.pre_tokenizer.WhitespacePreTokenizer
+apply_to: cbpe
+input_key: text
+output_key: text

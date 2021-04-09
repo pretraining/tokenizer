@@ -6,7 +6,7 @@ def test_WhitespacePreTokenizer():
     test_case02 = "안녕하세요."
     test_case03 = ""
 
-    pretokenizer_not_bbpe = WhitespacePreTokenizer(target="cbpe")
+    pretokenizer_not_bbpe = WhitespacePreTokenizer("cbpe")
     assert pretokenizer_not_bbpe.pretokenize(test_case01) == [
         "안녕하세요,",
         "제",
@@ -21,7 +21,7 @@ def test_WhitespacePreTokenizer():
     assert pretokenizer_not_bbpe.process({"text": test_case02}) == {"text": ["안녕하세요."]}
     assert pretokenizer_not_bbpe.process({"text": test_case03}) == {"text": [""]}
 
-    pretokenizer_for_bbpe = WhitespacePreTokenizer(target="bbpe")
+    pretokenizer_for_bbpe = WhitespacePreTokenizer("bbpe")
     assert pretokenizer_for_bbpe.pretokenize(test_case01) == [
         "안녕하세요,",
         "제",
@@ -42,7 +42,7 @@ def test_MorphemePreTokenizer():
     test_case02 = "안녕하세요."
     test_case03 = ""
 
-    pretokenizer_not_bbpe = MorphemePreTokenizer(target="cbpe")
+    pretokenizer_not_bbpe = MorphemePreTokenizer("cbpe")
     assert pretokenizer_not_bbpe.pretokenize(test_case01) == [
         "안녕",
         "하",
@@ -65,7 +65,7 @@ def test_MorphemePreTokenizer():
     }
     assert pretokenizer_not_bbpe.process({"text": test_case03}) == {"text": [""]}
 
-    pretokenizer_for_bbpe = MorphemePreTokenizer(target="bbpe")
+    pretokenizer_for_bbpe = MorphemePreTokenizer("bbpe")
     assert pretokenizer_for_bbpe.pretokenize(test_case01) == [
         "안녕",
         "하",

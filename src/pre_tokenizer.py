@@ -8,10 +8,10 @@ WHITESPACE = re.compile(r"\s+")
 
 
 class WhitespacePreTokenizer:
-    def __init__(self, target="cbpe", input_key="text", output_key="text") -> None:
+    def __init__(self, apply_to="cbpe", input_key="text", output_key="text") -> None:
         self._input_key = input_key
         self._output_key = output_key
-        self._target = target
+        self._target = apply_to
         self._split = WHITESPACE.split
 
     def pretokenize(self, string: str) -> List[str]:
@@ -42,10 +42,10 @@ class WhitespacePreTokenizer:
 
 
 class MorphemePreTokenizer:
-    def __init__(self, target="cbpe", input_key="text", output_key="text") -> None:
+    def __init__(self, apply_to="cbpe", input_key="text", output_key="text") -> None:
         self._input_key = input_key
         self._output_key = output_key
-        self._target = target
+        self._target = apply_to
         self._split = Mecab().morphs
 
     def pretokenize(self, string: str) -> List[str]:

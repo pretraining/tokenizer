@@ -1,0 +1,17 @@
+# @package _group_
+init:
+  _target_: tokenizers.CharBPETokenizer
+  suffix: </w>
+  dropout: null # equal to None in Python
+  lowercase: False
+  unicode_normalizer: null # equal to None in Python
+  bert_normalizer: True
+  split_on_whitespace_only: False
+train:
+  vocab_size: 3000
+  min_frequency: 2
+  special_tokens: ["<unk>"]
+  limit_alphabet: 1000
+  initial_alphabet: []
+  suffix: "</w>"
+  show_progress: True

@@ -1,0 +1,10 @@
+version: v00
+corpus:
+  dirpath: /home/user/workspace/corpus/wiki
+  extension: txt
+  sampling_ratio: 0.1
+datasets:
+  num_workers: 4
+defaults:
+  - pre_tokenizer: cbpe_morpheme
+  - subword_tokenizer: cbpe
