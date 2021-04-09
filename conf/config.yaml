@@ -2,7 +2,7 @@ version: v00
 corpus:
   dirpath: /home/user/workspace/corpus/wiki
   extension: txt
-  sampling_ratio: 0.1
+  sampling_ratio: 0.01
 datasets:
   num_workers: 4
 defaults:
