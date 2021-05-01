@@ -36,32 +36,32 @@ bash <(curl -s https://raw.githubusercontent.com/konlpy/konlpy/master/scripts/me
 ### Run
 - Train `CharBPETokenizer` from tokens which are split by whitespace
   ```bash
-  $ python train.py pre_tokenizer=cbpe_whitespace subword_tokenizer=cbpe
+  $ python train.py corpus.dirpath=path/to/corpus tokenizer=cbpe_whitespace
   ```
 
 - Train `CharBPETokenizer` from tokens which are split by morpheme-analyzer (`Mecab`)
   ```bash
-  $ python train.py pre_tokenizer=cbpe_morpheme subword_tokenizer=cbpe
+  $ python train.py corpus.dirpath=path/to/corpus tokenizer=cbpe_morpheme
   ```
 
 - Train `ByteLevelBPETokenizer` from tokens which are split by whitespace
   ```bash
-  $ python train.py pre_tokenizer=bbpe_whitespace subword_tokenizer=bbpe
+  $ python train.py corpus.dirpath=path/to/corpus tokenizer=bbpe_whitespace
   ```
 
 - Train `ByteLevelBPETokenizer` from tokens which are split by morpheme-analyzer (`Mecab`)
   ```bash
-  $ python train.py pre_tokenizer=bbpe_morpheme subword_tokenizer=bbpe
+  $ python train.py corpus.dirpath=path/to/corpus tokenizer=bbpe_morpheme
   ```
 
 - Train `BertWordPieceTokenizer` from tokens which are split by whitespace
   ```bash
-  $ python train.py pre_tokenizer=wp_whitespace subword_tokenizer=wp
+  $ python train.py corpus.dirpath=path/to/corpus tokenizer=wp_whitespace
   ```
 
 - Train `BertWordPieceTokenizer` from tokens which are split by morpheme-analyzer (`Mecab`)
   ```bash
-  $ python train.py pre_tokenizer=wp_morpheme subword_tokenizer=wp
+  $ python train.py corpus.dirpath=path/to/corpus tokenizer=wp_morpheme
   ```
 
 You can see all valid arguments of `train.py` below command.
@@ -74,43 +74,42 @@ $ python train.py --help
 == Configuration groups ==
 Compose your configuration from those groups (group=option)
 
-pre_tokenizer: bbpe_morpheme, bbpe_whitespace, cbpe_morpheme, cbpe_whitespace, wp_morpheme, wp_whitespace
-subword_tokenizer: bbpe, cbpe, wp
-
+tokenizer: bbpe_morpheme, bbpe_whitespace, cbpe_morpheme, cbpe_whitespace, wp_morpheme, wp_whitespace
 
 == Config ==
 Override anything in the config (foo.bar=value)
 
 version: v00
 corpus:
-  dirpath: /home/user/workspace/corpus/wiki
+  dirpath: null
   extension: txt
   sampling_ratio: 0.01
 datasets:
   num_workers: 4
-pre_tokenizer:
-  _target_: src.pre_tokenizer.MorphemePreTokenizer
-  apply_to: cbpe
-  input_key: text
-  output_key: text
-subword_tokenizer:
-  init:
-    _target_: tokenizers.CharBPETokenizer
-    suffix: </w>
-    dropout: null
-    lowercase: false
-    unicode_normalizer: null
-    bert_normalizer: true
-    split_on_whitespace_only: false
-  train:
-    vocab_size: 3000
-    min_frequency: 2
-    special_tokens:
-    - <unk>
-    limit_alphabet: 1000
-    initial_alphabet: []
-    suffix: </w>
-    show_progress: true
+tokenizer:
+  subword_tokenizer:
+    init:
+      _target_: tokenizers.CharBPETokenizer
+      suffix: </w>
+      dropout: null
+      lowercase: false
+      unicode_normalizer: null
+      bert_normalizer: true
+      split_on_whitespace_only: false
+    train:
+      vocab_size: 3000
+      min_frequency: 2
+      special_tokens:
+      - <unk>
+      limit_alphabet: 1000
+      initial_alphabet: []
+      suffix: </w>
+      show_progress: true
+  pre_tokenizer:
+    _target_: src.pre_tokenizer.MorphemePreTokenizer
+    apply_to: cbpe
+    input_key: text
+    output_key: text
 ```
 
 ## Contribution

@@ -1,0 +1,21 @@
+# @package tokenizer
+subword_tokenizer:
+  init:
+    _target_: tokenizers.ByteLevelBPETokenizer
+    add_prefix_space: False
+    lowercase: False
+    dropout: null # equal to None in Python
+    unicode_normalizer: null # equal to None in Python
+    continuing_subword_prefix: null # equal to None in Python
+    end_of_word_suffix: null # equal to None in Python
+    trim_offsets: False
+  train:
+    vocab_size: 3000
+    min_frequency: 2
+    show_progress: True
+    special_tokens: []
+pre_tokenizer:
+  _target_: src.pre_tokenizer.MorphemePreTokenizer
+  apply_to: bbpe
+  input_key: text
+  output_key: text

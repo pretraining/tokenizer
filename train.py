@@ -32,17 +32,19 @@ def main(cfg: DictConfig) -> None:
             indices=choice(range(total_size), sample_size)
         )
 
-    pre_tokenizer = instantiate(cfg.pre_tokenizer)
+    pre_tokenizer = instantiate(cfg.tokenizer.pre_tokenizer)
 
     preprocessed_corpus = preprocessed_corpus.map(
         pre_tokenizer.process, num_proc=cfg.datasets.num_workers
     )
 
-    gen = convert_to_token_generator(preprocessed_corpus, cfg.pre_tokenizer.output_key)
+    gen = convert_to_token_generator(
+        preprocessed_corpus, cfg.tokenizer.pre_tokenizer.output_key
+    )
 
-    subword_tokenizer = instantiate(cfg.subword_tokenizer.init)
+    subword_tokenizer = instantiate(cfg.tokenizer.subword_tokenizer.init)
     subword_tokenizer.train_from_iterator(
-        gen, **OmegaConf.to_container(cfg.subword_tokenizer.train)
+        gen, **OmegaConf.to_container(cfg.tokenizer.subword_tokenizer.train)
     )
 
     vocab_dir = Path(to_absolute_path("vocab"))
@@ -50,12 +52,12 @@ def main(cfg: DictConfig) -> None:
     if not vocab_dir.exists():
         vocab_dir.mkdir(parents=True)
 
-    save_dir = vocab_dir / cfg.version
+    save_dir = vocab_dir / cfg.version / cfg.tokenizer.pre_tokenizer.apply_to
 
     if not save_dir.exists():
         save_dir.mkdir(parents=True)
     subword_tokenizer.save_model(str(save_dir))
-    OmegaConf.save(cfg.subword_tokenizer, save_dir / "config.yaml")
+    OmegaConf.save(cfg.tokenizer, save_dir / "config.yaml")
 
 
 if __name__ == "__main__":

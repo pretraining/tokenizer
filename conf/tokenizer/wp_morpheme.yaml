@@ -1,0 +1,27 @@
+# @package tokenizer
+subword_tokenizer:
+  init:
+    _target_: tokenizers.BertWordPieceTokenizer
+    unk_token: "[UNK]"
+    sep_token: "[SEP]"
+    cls_token: "[CLS]"
+    pad_token: "[PAD]"
+    mask_token: "[MASK]"
+    clean_text: True
+    handle_chinese_chars: True
+    strip_accents: False
+    lowercase: True
+    wordpieces_prefix: "##"
+  train:
+    vocab_size: 30000
+    min_frequency: 2
+    limit_alphabet: 1000
+    initial_alphabet: []
+    special_tokens: ["[PAD]", "[UNK]", "[CLS]", "[SEP]", "[MASK]"]
+    show_progress: True
+    wordpieces_prefix: "##"
+pre_tokenizer:
+  _target_: src.pre_tokenizer.MorphemePreTokenizer
+  apply_to: wp
+  input_key: text
+  output_key: text
