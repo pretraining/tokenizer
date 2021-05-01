@@ -9,7 +9,9 @@ Easy Korean subword tokenizer training tool
 - Python 3.7.9 environment (Recommendation)
 
 ```bash
-$ pip install -r requirements.txt
+pip install -r requirements.txt
+sudo apt-get install curl git # Ubuntu
+bash <(curl -s https://raw.githubusercontent.com/konlpy/konlpy/master/scripts/mecab.sh)
 ```
 
 ## Train
