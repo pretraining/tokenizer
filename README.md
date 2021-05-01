@@ -36,32 +36,32 @@ bash <(curl -s https://raw.githubusercontent.com/konlpy/konlpy/master/scripts/me
 ### Run
 - Train `CharBPETokenizer` from tokens which are split by whitespace
   ```bash
-  $ python train.py tokenizer=cbpe_whitespace
+  $ python train.py corpus.dirpath=path/to/corpus tokenizer=cbpe_whitespace
   ```
 
 - Train `CharBPETokenizer` from tokens which are split by morpheme-analyzer (`Mecab`)
   ```bash
-  $ python train.py tokenizer=cbpe_morpheme
+  $ python train.py corpus.dirpath=path/to/corpus tokenizer=cbpe_morpheme
   ```
 
 - Train `ByteLevelBPETokenizer` from tokens which are split by whitespace
   ```bash
-  $ python train.py tokenizer=bbpe_whitespace
+  $ python train.py corpus.dirpath=path/to/corpus tokenizer=bbpe_whitespace
   ```
 
 - Train `ByteLevelBPETokenizer` from tokens which are split by morpheme-analyzer (`Mecab`)
   ```bash
-  $ python train.py tokenizer=bbpe_morpheme
+  $ python train.py corpus.dirpath=path/to/corpus tokenizer=bbpe_morpheme
   ```
 
 - Train `BertWordPieceTokenizer` from tokens which are split by whitespace
   ```bash
-  $ python train.py tokenizer=wp_whitespace
+  $ python train.py corpus.dirpath=path/to/corpus tokenizer=wp_whitespace
   ```
 
 - Train `BertWordPieceTokenizer` from tokens which are split by morpheme-analyzer (`Mecab`)
   ```bash
-  $ python train.py tokenizer=wp_morpheme
+  $ python train.py corpus.dirpath=path/to/corpus tokenizer=wp_morpheme
   ```
 
 You can see all valid arguments of `train.py` below command.
